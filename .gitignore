@@ -1,0 +1,10 @@
+# Excel workbooks
+*.xlsm
+*.xlsx
+*.xlsb
+
+# Excel temporary lock files
+~
+
+# VS Code
+.vscode/
