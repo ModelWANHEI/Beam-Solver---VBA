@@ -17,7 +17,7 @@ Rather than relying heavily on worksheet formulas, the solver performs the calcu
 
 # Current Features
 - Simply-supported beams
-- Any number of point loads
+- Any number of point loads or applied moments
 - Automatic reaction force calculation
 - Shear force diagram
 - Bending moment diagram
@@ -54,8 +54,8 @@ Enter each point load using:
 1) Position
 2) Magnitude
 
-Click Add New Point Load for each load.
-To remove a point, click the row you wish to remove and click "Remove Point Load."
+Click Add New Point Load for each load, or Add Moment is you wish to submit an applied moment.
+To remove a point, click the row you wish to remove and click "Remove Point Load"/"Remove Moment."
 Click Solve Beam.
 Use the < and > buttons to cycle between:
 - Shear
@@ -81,9 +81,6 @@ While Euler integration is not the highest-order numerical method available, it 
 Possible future additions include:
 
 - Uniformly distributed loads (UDLs)
-- Applied moments
-- Cantilever beams
-- Multiple support conditions
 - Additional cross-section geometries
 - CSV export
 - Better graph customization
