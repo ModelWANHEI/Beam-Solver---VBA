@@ -1,5 +1,5 @@
 Attribute VB_Name = "solvers"
-Public Function SolveReactionForces(B As Beam, Loads() As PointLoad) As Reactions
+Public Function SolveReactionForces(B As Beam, Loads() As PointLoad, Moments() As PointMoment) As Reactions
     Dim R As Reactions
     Dim SumFy As Double
     Dim SumMA As Double
@@ -15,6 +15,10 @@ Public Function SolveReactionForces(B As Beam, Loads() As PointLoad) As Reaction
       SumMA = SumMA - (Loads(Counter).Magnitude * Loads(Counter).PositionFromA)
     Next Counter
     
+    For Counter = LBound(Moments) To UBound(Moments)
+        SumMA = SumMA + Moments(Counter).Magnitude
+    Next Counter
+    
     R.By = SumMA / B.Length
     R.Ay = -(SumFy + R.By)
     
@@ -22,7 +26,7 @@ Public Function SolveReactionForces(B As Beam, Loads() As PointLoad) As Reaction
     
 End Function
 
-Public Function ItemizeInternalReactions(B As Beam, Loads() As PointLoad, R As Reactions) As BeamSample()
+Public Function ItemizeInternalReactions(B As Beam, Loads() As PointLoad, Moments() As PointMoment, R As Reactions) As BeamSample()
     Dim BeamResults() As BeamSample
     Dim CumulativeShear As Double
     Dim CumulativeMoment As Double
@@ -43,6 +47,12 @@ Public Function ItemizeInternalReactions(B As Beam, Loads() As PointLoad, R As R
                 CumulativeShear = CumulativeShear + Loads(PointIndexer).Magnitude
                 'They should add += and ++ to VBA.
                 CumulativeMoment = CumulativeMoment + ((BeamResults(i).X - Loads(PointIndexer).PositionFromA) * (Loads(PointIndexer).Magnitude))
+            End If
+        Next PointIndexer
+        
+        For PointIndexer = LBound(Moments) To UBound(Moments)
+            If Moments(PointIndexer).PositionFromA <= BeamResults(i).X Then
+                CumulativeMoment = CumulativeMoment + Moments(PointIndexer).Magnitude
             End If
         Next PointIndexer
         

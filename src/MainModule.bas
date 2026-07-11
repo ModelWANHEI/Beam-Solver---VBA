@@ -1,7 +1,7 @@
 Attribute VB_Name = "MainModule"
 Option Explicit
 
-'Thank you for viewing my work. Last maintained 2026.07.05. If the GitHub says otherwise, I forgot to change this.
+'Thank you for viewing my work. Last maintained 2026.07.10. If the GitHub says otherwise, I forgot to change this.
 '=================================================================================================================
 'Conventions
 'SI Units
@@ -19,19 +19,19 @@ Option Explicit
 'If you dunno what that means, my bad. But I get it, so YOU are gonna have to live with it.
 '=================================================================================================================
 
-Public Sub main(B As Beam, Loads() As PointLoad)
+Public Sub main(B As Beam, Loads() As PointLoad, Moments() As PointMoment)
 
     Dim R As Reactions
     Dim dxPoints As Long
     Dim POI() As PointOfInterest
     
     'Solve Reactions
-    R = SolveReactionForces(B, Loads)
+    R = SolveReactionForces(B, Loads, Moments)
     
     'Generate Shear, Generate Moment
     dxPoints = CLng(B.Length / B.Resolution)
     ReDim dBeam(0 To dxPoints)
-    dBeam = ItemizeInternalReactions(B, Loads, R)
+    dBeam = ItemizeInternalReactions(B, Loads, Moments, R)
     
     'Generate Stress
     Call CalculateStressReactions(B, dBeam)
@@ -45,6 +45,11 @@ Public Sub main(B As Beam, Loads() As PointLoad)
     POI = SummarizeGlobality(dBeam)
     
     Call SummaryForm.LoadSummary(POI)
-    SummaryForm.Show vbModeless
+
+    If Not SummaryForm.Visible Then
+        SummaryForm.Show vbModeless
+    End If
+
+    SummaryForm.Repaint
     
 End Sub

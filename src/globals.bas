@@ -28,6 +28,11 @@ Public Type PointLoad
     Magnitude As Double 'kN
 End Type
 
+Public Type PointMoment
+    PositionFromA As Double 'x, m
+    Magnitude As Double 'kNm
+End Type
+
 Public Type PointOfInterest
     MaximaPositionFromA() As Double 'm, array in the event of multiple points
     MinimaPositionFromA() As Double 'Because do YOU want to deal with a potentially non-rectangular matrix? Hmm? No? Thought so.

@@ -53,3 +53,18 @@ Public Function ConstructLoad(B As Beam, Position As Double, Magnitude As Double
     ConstructLoad = F
     
 End Function
+
+Public Function ConstructMoment(B As Beam, Position As Double, Magnitude As Double)
+    Dim M As PointMoment
+    
+    If Position > B.Length Or Position < 0 Then
+        Err.Raise vbObjectError + 1, , "Position does not exist on beam."
+        Exit Function
+    End If
+    
+    M.PositionFromA = Position
+    M.Magnitude = Magnitude
+    
+    ConstructMoment = M
+    
+End Function
