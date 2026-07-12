@@ -3,8 +3,11 @@
 *.xlsx
 *.xlsb
 
+#Save for BeamSolverVBA.xlsm
+!BeamSolverVBA.xlsm
+
 # Excel temporary lock files
-~
+~$
 
 # VS Code
 .vscode/
