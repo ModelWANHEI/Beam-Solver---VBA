@@ -14,7 +14,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Public Sub LoadSummary(POI() As PointOfInterest)
-    Dim index As Long
+    Dim Index As Long
     
     ResultsBox.CLEAR
     
@@ -27,84 +27,84 @@ Public Sub LoadSummary(POI() As PointOfInterest)
     ResultsBox.List(0, 2) = "Position (m)"
     ResultsBox.List(0, 3) = "Magnitude"
     
-    For index = 0 To POI(SHEAR_COL).NumberOfPoints(MINIMA) - 1
+    For Index = 0 To POI(SHEAR_COL).NumberOfPoints(MINIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Shear"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Minimum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SHEAR_COL).MinimaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SHEAR_COL).MinimaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(SHEAR_COL).Magnitude(MINIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(SHEAR_COL).NumberOfPoints(MAXIMA) - 1
+    For Index = 0 To POI(SHEAR_COL).NumberOfPoints(MAXIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Shear"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Maximum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SHEAR_COL).MaximaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SHEAR_COL).MaximaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(SHEAR_COL).Magnitude(MAXIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(MOMENT_COL).NumberOfPoints(MINIMA) - 1
+    For Index = 0 To POI(MOMENT_COL).NumberOfPoints(MINIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Moment"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Minimum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(MOMENT_COL).MinimaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(MOMENT_COL).MinimaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(MOMENT_COL).Magnitude(MINIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(MOMENT_COL).NumberOfPoints(MAXIMA) - 1
+    For Index = 0 To POI(MOMENT_COL).NumberOfPoints(MAXIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Moment"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Maximum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(MOMENT_COL).MaximaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(MOMENT_COL).MaximaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(MOMENT_COL).Magnitude(MAXIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(STRESS_COL).NumberOfPoints(MINIMA) - 1
+    For Index = 0 To POI(STRESS_COL).NumberOfPoints(MINIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Stress"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Minimum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(STRESS_COL).MinimaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(STRESS_COL).MinimaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(STRESS_COL).Magnitude(MINIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(STRESS_COL).NumberOfPoints(MAXIMA) - 1
+    For Index = 0 To POI(STRESS_COL).NumberOfPoints(MAXIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Stress"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Maximum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(STRESS_COL).MaximaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(STRESS_COL).MaximaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(STRESS_COL).Magnitude(MAXIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(SLOPE_COL).NumberOfPoints(MINIMA) - 1
+    For Index = 0 To POI(SLOPE_COL).NumberOfPoints(MINIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Slope"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Minimum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SLOPE_COL).MinimaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SLOPE_COL).MinimaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(SLOPE_COL).Magnitude(MINIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(SLOPE_COL).NumberOfPoints(MAXIMA) - 1
+    For Index = 0 To POI(SLOPE_COL).NumberOfPoints(MAXIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Slope"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Maximum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SLOPE_COL).MaximaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(SLOPE_COL).MaximaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(SLOPE_COL).Magnitude(MAXIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(DEFLECTION_COL).NumberOfPoints(MINIMA) - 1
+    For Index = 0 To POI(DEFLECTION_COL).NumberOfPoints(MINIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Deflection"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Minimum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(DEFLECTION_COL).MinimaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(DEFLECTION_COL).MinimaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(DEFLECTION_COL).Magnitude(MINIMA), "0.000")
-    Next index
+    Next Index
     
-    For index = 0 To POI(DEFLECTION_COL).NumberOfPoints(MAXIMA) - 1
+    For Index = 0 To POI(DEFLECTION_COL).NumberOfPoints(MAXIMA) - 1
         ResultsBox.AddItem
         ResultsBox.List(ResultsBox.ListCount - 1, 0) = "Deflection"
         ResultsBox.List(ResultsBox.ListCount - 1, 1) = "Maximum"
-        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(DEFLECTION_COL).MaximaPositionFromA(index), "0.000")
+        ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(DEFLECTION_COL).MaximaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(DEFLECTION_COL).Magnitude(MAXIMA), "0.000")
-    Next index
+    Next Index
     
 End Sub

@@ -1,7 +1,7 @@
 Attribute VB_Name = "Results"
 Public Sub MakeScatterPlot(dB() As BeamSample, X As Long, Y As Long)
     
-    Dim index As Long
+    Dim Index As Long
     Dim Chart As ChartObject
     Dim WS As Worksheet
     Dim LastRow As Long
@@ -32,15 +32,15 @@ Public Sub MakeScatterPlot(dB() As BeamSample, X As Long, Y As Long)
     WS.Cells(24, SLOPE_COL).Value = "Slope"
     WS.Cells(24, DEFLECTION_COL).Value = "Deflection (m)"
     
-    For index = LBound(dB) To UBound(dB)
-        WS.Cells(index + 25, X_COL).Value = dB(index).X
+    For Index = LBound(dB) To UBound(dB)
+        WS.Cells(Index + 25, X_COL).Value = dB(Index).X
         'X should only ever be X.
-        WS.Cells(index + 25, SHEAR_COL).Value = dB(index).Shear
-        WS.Cells(index + 25, MOMENT_COL).Value = dB(index).Moment
-        WS.Cells(index + 25, STRESS_COL).Value = dB(index).Stress
-        WS.Cells(index + 25, SLOPE_COL).Value = dB(index).Slope
-        WS.Cells(index + 25, DEFLECTION_COL).Value = dB(index).Deflection
-    Next index
+        WS.Cells(Index + 25, SHEAR_COL).Value = dB(Index).Shear
+        WS.Cells(Index + 25, MOMENT_COL).Value = dB(Index).Moment
+        WS.Cells(Index + 25, STRESS_COL).Value = dB(Index).Stress
+        WS.Cells(Index + 25, SLOPE_COL).Value = dB(Index).Slope
+        WS.Cells(Index + 25, DEFLECTION_COL).Value = dB(Index).Deflection
+    Next Index
     
     For Each c In WS.ChartObjects
         c.Delete

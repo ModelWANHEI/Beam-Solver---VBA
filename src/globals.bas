@@ -33,6 +33,15 @@ Public Type PointMoment
     Magnitude As Double 'kNm
 End Type
 
+Public Type DistributedLoad
+    StartPosition As Double 'x, m. From A.
+    EndPosition As Double 'x, m. From A.
+    
+    StartIntensity As Double 'kN/m
+    EndIntensity As Double 'kN/m
+    'I could've just made two arrays to compact this like I did PointOfInterest, but, like, c'mon.
+End Type
+
 Public Type PointOfInterest
     MaximaPositionFromA() As Double 'm, array in the event of multiple points
     MinimaPositionFromA() As Double 'Because do YOU want to deal with a potentially non-rectangular matrix? Hmm? No? Thought so.

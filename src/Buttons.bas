@@ -41,5 +41,15 @@ Public Sub ScrollBackward()
 End Sub
 
 Public Sub LaunchBeamSolver()
-    BeamANHEILyzerV1.Show vbModeless
+    If Not BeamANHEILyzerV1.Visible Then
+        BeamANHEILyzerV1.Show vbModeless
+    End If
+End Sub
+
+Public Sub ShowSummary()
+    If Not SummaryForm.Visible Then
+        SummaryForm.Show vbModeless
+    End If
+
+    SummaryForm.Repaint
 End Sub

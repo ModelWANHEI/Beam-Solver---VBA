@@ -45,11 +45,5 @@ Public Sub main(B As Beam, Loads() As PointLoad, Moments() As PointMoment)
     POI = SummarizeGlobality(dBeam)
     
     Call SummaryForm.LoadSummary(POI)
-
-    If Not SummaryForm.Visible Then
-        SummaryForm.Show vbModeless
-    End If
-
-    SummaryForm.Repaint
     
 End Sub

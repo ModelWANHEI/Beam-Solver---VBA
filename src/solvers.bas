@@ -76,3 +76,11 @@ Public Function ItemizeInternalReactions(B As Beam, Loads() As PointLoad, Moment
     ItemizeInternalReactions = BeamResults
      
 End Function
+
+Public Function PrettyForce(F As Double) As String
+    If Abs(F) < Tolerance Then
+        PrettyForce = "0"
+    Else
+        PrettyForce = Format(F, "0.000")
+    End If
+End Function

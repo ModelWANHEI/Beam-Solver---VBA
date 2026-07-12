@@ -9,36 +9,36 @@ Public Sub CalculateStressReactions(B As Beam, Samples() As BeamSample)
 End Sub
 
 Public Sub CalculateDeflection(B As Beam, Samples() As BeamSample)
-    Dim index As Long
+    Dim Index As Long
     Dim Curvature As Double
     Dim Correction As Double
     Dim dx As Double
     
     dx = B.Resolution
     
-    For index = LBound(Samples) To UBound(Samples) - 1
-        Curvature = (Samples(index).Moment * KN_TO_N) / (B.E * GPA_TO_PA * B.i)
-        Samples(index + 1).Slope = Samples(index).Slope + (Curvature * dx)
-    Next index
+    For Index = LBound(Samples) To UBound(Samples) - 1
+        Curvature = (Samples(Index).Moment * KN_TO_N) / (B.E * GPA_TO_PA * B.i)
+        Samples(Index + 1).Slope = Samples(Index).Slope + (Curvature * dx)
+    Next Index
     
-    For index = LBound(Samples) To UBound(Samples) - 1
-        Samples(index + 1).Deflection = Samples(index).Deflection + (Samples(index).Slope * dx)
-    Next index
+    For Index = LBound(Samples) To UBound(Samples) - 1
+        Samples(Index + 1).Deflection = Samples(Index).Deflection + (Samples(Index).Slope * dx)
+    Next Index
     
     Correction = Samples(UBound(Samples)).Deflection / B.Length
     'v = Int(Theta dx) ; v = vo - Cx ; v(L) = vo(L) - CL ; C = vo(L)/L when v(L) = 0
     
-    For index = LBound(Samples) To UBound(Samples)
-        Samples(index).Slope = Samples(index).Slope - Correction
-    Next index
+    For Index = LBound(Samples) To UBound(Samples)
+        Samples(Index).Slope = Samples(Index).Slope - Correction
+    Next Index
     
-    For index = LBound(Samples) To UBound(Samples)
-        Samples(index).Deflection = 0
-    Next index
+    For Index = LBound(Samples) To UBound(Samples)
+        Samples(Index).Deflection = 0
+    Next Index
     
-    For index = LBound(Samples) To UBound(Samples) - 1
-        Samples(index + 1).Deflection = Samples(index).Deflection + (Samples(index).Slope * dx)
-    Next index
+    For Index = LBound(Samples) To UBound(Samples) - 1
+        Samples(Index + 1).Deflection = Samples(Index).Deflection + (Samples(Index).Slope * dx)
+    Next Index
     
 End Sub
 
