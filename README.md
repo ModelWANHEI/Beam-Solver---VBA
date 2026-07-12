@@ -1,5 +1,5 @@
 # Beam-Solver---VBA
-A Beam Solver UI in Microsoft Excel that Plots Shear, Moment (Torque), Bending Stress, and Deflection (Both Slope and Magnitude) via the Forward Euler Method. Made with VBA.
+A Beam Solver UI in Microsoft Excel that Plots Shear, Moment (Torque), Bending Stress, and Deflection (Both Slope and Magnitude) via the Forward Euler Method. Made with VBA, and Unit Tests are ran through S-Frame testing.
 
 This project was built to practice and study:
 
