@@ -5,7 +5,7 @@ Public Const KN_TO_N As Double = 1000#
 Public Const GPA_TO_PA As Double = 1000000000#
 Public SCROLL As Long
 Public dBeam() As BeamSample
-Public Const CLEAR As Long = 0
+Public Const CLEARED As Long = 0
 Public Const X_COL As Long = 1
 Public Const SHEAR_COL As Long = 2
 Public Const MOMENT_COL As Long = 3
@@ -17,6 +17,29 @@ Public Enum ExtremaType
     MINIMA = 0
     MAXIMA = 1
 End Enum
+
+Public Enum JSONConfigTypes
+    BEAMLENGTH = 0
+    YOUNGMOD = 1
+    BEAMWIDTH = 2
+    BEAMHEIGHT = 3
+    BEAMINERTIA = 4
+    BEAMRESOLUTION = 5
+End Enum
+
+Public Enum AppliedTypes
+    DISTANCEFROMA = 0
+    APPLIEDMAGN = 1
+End Enum
+
+Public Enum DistLoadTypes
+    DISTLOADSTARTP = 0 'Start position
+    DISTLOADENDP = 1 'End position
+    DISTLOADSTARTI = 2 'Start Intensity
+    DISTLOADENDI = 3 'You get the idea.
+End Enum
+
+'We're racking up quite a few of these, aren't we?
 
 Public Type Reactions
     Ay As Double 'kN
@@ -39,7 +62,7 @@ Public Type DistributedLoad
     
     StartIntensity As Double 'kN/m
     EndIntensity As Double 'kN/m
-    'I could've just made two arrays to compact this like I did PointOfInterest, but, like, c'mon.
+    'I could've just made two arrays to compact this like I do in PointOfInterest, but, like, c'mon.
 End Type
 
 Public Type PointOfInterest

@@ -3,11 +3,14 @@
 *.xlsx
 *.xlsb
 
-#Save for BeamSolverVBA.xlsm
+# Track the main workbook
 !BeamSolverVBA.xlsm
 
 # Excel temporary lock files
-~$
+~$*
 
 # VS Code
 .vscode/
+
+# Generated project exports
+Projects/

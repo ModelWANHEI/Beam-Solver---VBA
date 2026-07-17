@@ -19,7 +19,7 @@ Option Explicit
 'If you dunno what that means, my bad. But I get it, so YOU are gonna have to live with it.
 '=================================================================================================================
 
-Public Sub main(B As Beam, Loads() As PointLoad, Moments() As PointMoment)
+Public Sub main(B As Beam, Loads() As PointLoad, Moments() As PointMoment, ProjectName As String)
 
     Dim R As Reactions
     Dim dxPoints As Long
@@ -44,6 +44,8 @@ Public Sub main(B As Beam, Loads() As PointLoad, Moments() As PointMoment)
     
     POI = SummarizeGlobality(dBeam)
     
-    Call SummaryForm.LoadSummary(POI)
+    Call SummaryForm.LoadSummary(POI, ProjectName)
+    
+    Call ExportCSV(dBeam, ProjectName)
     
 End Sub

@@ -13,7 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public Sub LoadSummary(POI() As PointOfInterest)
+Public Sub LoadSummary(POI() As PointOfInterest, ProjectName As String)
     Dim Index As Long
     
     ResultsBox.CLEAR
@@ -106,5 +106,38 @@ Public Sub LoadSummary(POI() As PointOfInterest)
         ResultsBox.List(ResultsBox.ListCount - 1, 2) = Format(POI(DEFLECTION_COL).MaximaPositionFromA(Index), "0.000")
         ResultsBox.List(ResultsBox.ListCount - 1, 3) = Format(POI(DEFLECTION_COL).Magnitude(MAXIMA), "0.000")
     Next Index
+    
+    Dim FileNum As Integer
+    FileNum = FreeFile
+    Dim FileName As String
+    Dim SaveFolder As String
+    Dim ProjectFolder As String
+    Dim RowString As String
+    
+    If ProjectName = "" Then
+        MsgBox "Please enter a project name."
+        Exit Sub
+    End If
+    
+    SaveFolder = ThisWorkbook.Path & "\Projects"
+    If Dir(SaveFolder, vbDirectory) = "" Then
+        MkDir SaveFolder
+    End If
+    
+    ProjectFolder = SaveFolder & "\" & ProjectName
+    
+    If Dir(ProjectFolder, vbDirectory) = "" Then
+        MkDir ProjectFolder
+    End If
+    
+    FileName = ProjectFolder & "\" & ProjectName & "Summary.csv"
+    Open FileName For Output As #FileNum
+    
+    For Index = 0 To ResultsBox.ListCount - 1
+        RowString = ResultsBox.List(Index, 0) & "," & ResultsBox.List(Index, 1) & "," & ResultsBox.List(Index, 2) & "," & ResultsBox.List(Index, 3)
+        Print #FileNum, RowString
+    Next Index
+    
+    Close #FileNum
     
 End Sub

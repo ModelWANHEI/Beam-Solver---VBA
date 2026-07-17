@@ -85,3 +85,162 @@ Public Sub MakeScatterPlot(dB() As BeamSample, X As Long, Y As Long)
     
 End Sub
 
+Public Sub ExportCSV(dB() As BeamSample, ProjectName As String)
+    Dim FileNum As Integer
+    FileNum = FreeFile
+    Dim FileName As String
+    Dim SaveFolder As String
+    Dim ProjectFolder As String
+    Dim RowString As String
+    Dim Index As Long
+    
+    If ProjectName = "" Then
+        MsgBox "Please enter a project name."
+        Exit Sub
+    End If
+    
+    SaveFolder = ThisWorkbook.Path & "\Projects"
+    If Dir(SaveFolder, vbDirectory) = "" Then
+        MkDir SaveFolder
+    End If
+    
+    ProjectFolder = SaveFolder & "\" & ProjectName
+    
+    If Dir(ProjectFolder, vbDirectory) = "" Then
+        MkDir ProjectFolder
+    End If
+    
+    FileName = ProjectFolder & "\" & ProjectName & "Results.csv"
+    Open FileName For Output As #FileNum
+    
+    'Header
+    RowString = "x(m),Shear(kN),Moment(kNm),Stress(MPa),Slope(rad),Deflection(m)"
+    Print #FileNum, RowString
+    
+    For Index = LBound(dB) To UBound(dB)
+        RowString = dB(Index).X & "," & dB(Index).Shear & "," & dB(Index).Moment & "," & dB(Index).Stress & "," & dB(Index).Slope & "," & dB(Index).Deflection
+        Print #FileNum, RowString
+    Next Index
+    
+    Close #FileNum
+End Sub
+
+Public Function Q(ByVal S As String) As String
+    Q = """" & S & """"
+End Function
+
+Public Sub ExportJSON(ProjectName As String, B As Beam, Loads() As PointLoad, Moments() As PointMoment, DLs() As DistributedLoad)
+    Dim FileNum As Integer
+    FileNum = FreeFile
+    Dim FileName As String
+    Dim SaveFolder As String
+    Dim ProjectFolder As String
+    Dim RowString As String
+    Dim Index As Long
+    
+    If ProjectName = "" Then
+        MsgBox "Please enter a project name."
+        Exit Sub
+    End If
+    
+    SaveFolder = ThisWorkbook.Path & "\Projects"
+    If Dir(SaveFolder, vbDirectory) = "" Then
+        MkDir SaveFolder
+    End If
+    
+    ProjectFolder = SaveFolder & "\" & ProjectName
+    
+    If Dir(ProjectFolder, vbDirectory) = "" Then
+        MkDir ProjectFolder
+    End If
+    
+    FileName = ProjectFolder & "\" & ProjectName & "Config.json"
+    Open FileName For Output As #FileNum
+    
+    Print #FileNum, "{" 'This is the starting JSON curl
+    
+    'Project Name
+    RowString = "   " & Q("ProjectName") & ": " & Q(ProjectName) & ","
+    Print #FileNum, RowString
+    
+    Print #FileNum, "" 'Separator
+    
+    'Beam Specifications
+    Print #FileNum, "   " & Q("Beam") & ": {"
+    RowString = "    " & Q("Length_m") & ": " & B.Length & ","
+    Print #FileNum, RowString
+    RowString = "    " & Q("YoungsModulus_GPa") & ": " & B.E & ","
+    Print #FileNum, RowString
+    RowString = "    " & Q("Width_m") & ": " & B.B & ","
+    Print #FileNum, RowString
+    RowString = "    " & Q("Height_m") & ": " & B.H & ","
+    Print #FileNum, RowString
+    RowString = "    " & Q("MomentOfInertia_m_pow_4") & ": " & B.i & ","
+    Print #FileNum, RowString
+    RowString = "    " & Q("Resolution_m") & ": " & B.Resolution
+    Print #FileNum, RowString
+    Print #FileNum, "   },"
+    
+    Print #FileNum, ""
+    
+    'Point Loads
+    Print #FileNum, "   " & Q("PointLoads") & ": ["
+        For Index = LBound(Loads) To UBound(Loads)
+            Print #FileNum, "    {"
+            RowString = "    " & Q("DistanceFromA_m") & ": " & Loads(Index).PositionFromA & ","
+            Print #FileNum, RowString
+            RowString = "    " & Q("Magnitude_kN") & ": " & Loads(Index).Magnitude
+            Print #FileNum, RowString
+            If Index <> UBound(Loads) Then
+                Print #FileNum, "    },"
+            Else
+                Print #FileNum, "    }"
+            End If
+        Next Index
+    Print #FileNum, "   ],"
+    
+    Print #FileNum, ""
+    
+    'Applied Moments
+    Print #FileNum, "   " & Q("AppliedMoments") & ": ["
+        For Index = LBound(Moments) To UBound(Moments)
+            Print #FileNum, "    {"
+            RowString = "    " & Q("DistanceFromA_m") & ": " & Moments(Index).PositionFromA & ","
+            Print #FileNum, RowString
+            RowString = "    " & Q("Magnitude_kNm") & ": " & Moments(Index).Magnitude
+            Print #FileNum, RowString
+            If Index <> UBound(Moments) Then
+                Print #FileNum, "    },"
+            Else
+                Print #FileNum, "    }"
+            End If
+        Next Index
+    Print #FileNum, "   ],"
+    
+    Print #FileNum, ""
+    
+    'Dist Loads
+    Print #FileNum, "   " & Q("DistributedLoads") & ": ["
+        For Index = LBound(DLs) To UBound(DLs)
+            Print #FileNum, "    {"
+            RowString = "    " & Q("StartDistanceFromA_m") & ": " & DLs(Index).StartPosition & ","
+            Print #FileNum, RowString
+            RowString = "    " & Q("EndDistanceFromA_m") & ": " & DLs(Index).EndPosition & ","
+            Print #FileNum, RowString
+            RowString = "    " & Q("StartIntensity_kN/m") & ": " & DLs(Index).StartIntensity & ","
+            Print #FileNum, RowString
+            RowString = "    " & Q("EndIntensity_kN/m") & ": " & DLs(Index).EndIntensity
+            Print #FileNum, RowString
+            If Index <> UBound(DLs) Then
+                Print #FileNum, "    },"
+            Else
+                Print #FileNum, "    }"
+            End If
+        Next Index
+    Print #FileNum, "   ]"
+    
+    Print #FileNum, "}" 'Closing curl
+    
+    Close #FileNum
+End Sub
+
